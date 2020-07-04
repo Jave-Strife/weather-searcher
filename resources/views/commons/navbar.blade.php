@@ -10,7 +10,8 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
                 @if( Auth::check() )
-                    <li class="nav-item"><a href="#" class="nav-link">{{ Auth::user()->name }}</a></li>
+                    <img class="rounded img-fluid" src="{{ Gravatar::src(Auth::user()->email, 40) }}" alt="">
+                    <li class="nav-item">{!! link_to_route('user.show', Auth::user()->name, ['id' => Auth::id()], ['class' => 'nav-link']) !!}</li>
                     <li class="nav-item">{!! link_to_route('logout.get', 'Logout', [], ['class' => 'nav-link']) !!}</li>
                 @else
                     <li class="nav-item">{!! link_to_route('signup.get', 'Signup', [], ['class' => 'nav-link']) !!}</li>
