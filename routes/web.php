@@ -13,13 +13,15 @@
 
 /*
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'CitiesController@index');
+Route::resource('cities', 'CitiesController');
+
+Route::get('weather/{id}', 'WeathersController@index');
+Route::resource('weather', 'WeathersController');
 
 // ユーザ登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
