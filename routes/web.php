@@ -11,12 +11,6 @@
 |
 */
 
-/*
-Route::get('/', function () {
-    return view('index');
-});
-*/
-
 Route::get('/', 'CitiesController@index');
 Route::resource('cities', 'CitiesController');
 
@@ -35,4 +29,9 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 // ユーザ機能
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('user', 'UserController', ['only' => ['index', 'show']]);
+
+    Route::group(['prefix' => 'user/{id}'], function () {
+        Route::post('favorite', 'FavoritesController@store')->name('favorites.favorite');
+        Route::delete('unfavorite', 'FavoritesController@destroy')->name('favorites.unfavorite');
+    });
 });

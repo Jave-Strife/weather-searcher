@@ -12,14 +12,28 @@
                 </div>
             </div>
         </aside>
-        <!--
         <div class="col-sm-8">
-            <ul class="nav nav-tabs nav-justified mb-3">
-                <li class="nav-item"><a href="#" class="nav-link">TimeLine</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Followings</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Followers</a></li>
-            </ul>
+            @if( count( $favorites ) === 0 )
+                <p>お気に入りの市区町村はありません</p>
+            @else
+                <p>お気に入り一覧</p>
+                <table class="table table-bordered">
+                    @foreach( $favorites as $favorite )
+                        <td>
+                            {!! link_to_route('weather.show', $favorite->name, ['prefecture_id' => $favorite->id] ) !!}
+                            @if( Auth::user()->is_favoriting($favorite->id) )
+                                {!! Form::open(['route' => ['favorites.unfavorite', $favorite->id], 'method' => 'delete']) !!}
+                                    {!! Form::submit('解除', ['class' => "btn btn-danger btn-sm"]) !!}
+                                {!! Form::close() !!}
+                            @else
+                                {!! Form::open(['route' => ['favorites.favorite', $favorite->id]]) !!}
+                                    {!! Form::submit('お気に入り', ['class' => "btn btn-warning btn-sm"]) !!}
+                                {!! Form::close() !!}
+                            @endif
+                        </td>
+                    @endforeach
+                </table>
+            @endif
         </div>
-        -->
     </div>
 @endsection

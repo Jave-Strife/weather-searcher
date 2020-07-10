@@ -20,9 +20,7 @@
                                         @if( $city->prefecture_id == $prefecture->id )
                                             <td style="width: 120px;">
                                                 {!! link_to_route('weather.show', $city->name, ['prefecture_id' => $city->id] ) !!}
-                                                <button class="btn btn-sm btn-warning" type="button">
-                                                    お気に入り
-                                                </button>
+                                                @include('favorite.favorite_button')
                                             </td>
                                         @endif
                                     @endforeach
